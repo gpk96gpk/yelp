@@ -1,7 +1,17 @@
 import React from 'react'
 import StarRating from './StarRating'
 
-const Reviews = ({ reviews }) => {
+interface IReview {
+    ({ reviews }: { reviews: Array<{
+        id: number,
+        restaurant_id: number,
+        name: string,
+        review: string,
+        rating: number,
+    }> }): JSX.Element;
+}
+
+const Reviews:IReview = ({ reviews }) => {
   return (
     <div className='row row-cols-3 mb-2'>
         {reviews.map((review) => {

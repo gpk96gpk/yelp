@@ -6,7 +6,7 @@ import Reviews from '../components/Reviews'
 import AddReview from '../components/AddReview'
 import StarRating from '../components/StarRating'
 
-type RestaurantParams = {
+interface RestaurantParams {
   id: number,
 }
 
@@ -38,7 +38,7 @@ type ResponseResults = {
 }
 
 const RestaurantDetailPage = () => {
-  const {id} = useParams<RestaurantParams>()
+  const {id}:RestaurantParams = useParams()
   const {selectedRestaurant, setSelectedRestaurant} = useContext<SelectedRestaurantContext>(RestaurantsContext) 
 
 

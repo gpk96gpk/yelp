@@ -2,8 +2,37 @@ import React, { useState, useContext } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext'
 
+interface IAddRestaurantProps {
+    addRestaurants: (restaurant: {
+        id: number,
+        name: string,
+        location: string,
+        price_range: number,
+        average_rating: number,
+        count: number,
+
+    }) => void
+    // what should i replace void with?
+}
+
+interface IAddRestaurantResponseResults {
+    data: {
+        data: {
+            restaurant: {
+                id: number,
+                name: string,
+                location: string,
+                price_range: number,
+                average_rating: number,
+                count: number,
+
+            }
+        }
+    }
+}
+
 const AddRestaurant = () => {
-    const {addRestaurants} = useContext(RestaurantsContext)
+    const { addRestaurants }: IAddRestaurantProps = useContext(RestaurantsContext)
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const [priceRange, setPriceRange] = useState('Price Range')
@@ -11,41 +40,41 @@ const AddRestaurant = () => {
     const handleSubmit = async (e) => {
         e.stopPropagation();
         try {
-          const response = await RestaurantFinder.post("/", {
-            name,
-            location,
-            price_range: priceRange,
-          });
-          console.log(response.data.data.restaurant)
-          console.log(response)
-          addRestaurants(response.data.data.restaurant)
-        } catch (err) {}
-      }
+            const response: IAddRestaurantResponseResults = await RestaurantFinder.post("/", {
+                name,
+                location,
+                price_range: priceRange,
+            });
+            console.log(response.data.data.restaurant)
+            console.log(response)
+            addRestaurants(response.data.data.restaurant)
+        } catch (err) { }
+    }
     return (
         <div className="mb-4">
             <form action="">
                 <div className="row">
                     <div className="col">
-                        <input 
-                            value={name} 
-                            onChange={e => setName(e.target.value)} 
-                            type="text" 
-                            className="form-control" 
+                        <input
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            type="text"
+                            className="form-control"
                             placeholder="name"
                         />
                     </div>
                     <div className="col">
-                        <input 
-                            value={location} 
+                        <input
+                            value={location}
                             onChange={e => setLocation(e.target.value)}
-                            type="text" 
-                            className="form-control" 
+                            type="text"
+                            className="form-control"
                             placeholder="location"
                         />
                     </div>
                     <div className="col row container">
-                        <select 
-                            value={priceRange} 
+                        <select
+                            value={priceRange}
                             onChange={e => setPriceRange(e.target.value)}
                             className="col form-select mr-1"
                         >
@@ -61,13 +90,13 @@ const AddRestaurant = () => {
                             type="submit"
                             className="col-3 btn btn-primary"
                         >
-                             Add
+                            Add
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-  )
+    )
 }
 
 export default AddRestaurant

@@ -2,8 +2,43 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import RestaurantFinder from '../apis/RestaurantFinder'
 
-const UpdateRestaurant = (props) => {
-    const {id} = useParams()
+type UpdateRestaurantProps = {
+    (props: (name: string, location: string, price_range: number) => JSX.Element): JSX.Element; 
+}
+
+interface UpdateRestaurantId {
+    id: string,
+}
+// what is typescript type for navigate?
+// type Navigate = 
+
+type ResponseResults = {
+    data: {
+      results: {
+        restaurant: {
+          id: number,
+          name: string,
+          location: string,
+          price_range: number,
+          average_rating: number,
+          count: number,
+        },
+        reviews: Array<{
+          id: number,
+          restaurant_id: number,
+          name: string,
+          review: string,
+          rating: number,
+        }>
+      }
+    }
+    
+  }
+// How to set types for useState?
+
+
+const UpdateRestaurant:UpdateRestaurantProps = (props) => {
+    const {id}:UpdateRestaurantId = useParams()
     let navigate = useNavigate()
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
@@ -11,7 +46,7 @@ const UpdateRestaurant = (props) => {
     
     useEffect(() => {
         const fetchData = async() => {
-            const response = await RestaurantFinder.get(`/${id}`)
+            const response:ResponseResults = await RestaurantFinder.get(`/${id}`)
             console.log(response.data.results.restaurant)
             setName(response.data.results.restaurant.name)
             setLocation(response.data.results.restaurant.location)

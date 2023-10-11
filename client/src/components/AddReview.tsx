@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
+interface IParamId {
+    id: string,
+}
+
+
+
 const AddReview = () => {
-    const { id } =  useParams()
+    const { id }:IParamId =  useParams()
     const navigate = useNavigate()
     // console.log(id)
 
@@ -11,9 +17,14 @@ const AddReview = () => {
     const [reviewText, setReviewText] = useState('')
     const [rating, setRating] = useState('')
 
-    const handleSubmitReview = async (e) => {
+
+    //how to add typescript to the promise?
+    
+    const handleSubmitReview = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
+            // how to write typescript for this?
+
             const response = await RestaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review: reviewText,
