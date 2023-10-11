@@ -38,8 +38,8 @@ type ResponseResults = {
 }
 
 const RestaurantDetailPage = () => {
-  const {id}:RestaurantParams = useParams()
-  const {selectedRestaurant, setSelectedRestaurant} = useContext<SelectedRestaurantContext>(RestaurantsContext) 
+  const { id }: RestaurantParams = useParams()
+  const { selectedRestaurant, setSelectedRestaurant } = useContext<SelectedRestaurantContext>(RestaurantsContext)
 
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const RestaurantDetailPage = () => {
       try {
         const response: ResponseResults = await RestaurantFinder.get(`/${id}`)
         setSelectedRestaurant(response.data.results)
-        
+
       } catch (err) {
         console.log(err)
       }
@@ -67,7 +67,7 @@ const RestaurantDetailPage = () => {
             </span>
           </div>
           <div className="mt-3">
-            <Reviews reviews={selectedRestaurant.reviews}/>
+            <Reviews reviews={selectedRestaurant.reviews} />
           </div>
           <AddReview />
         </>

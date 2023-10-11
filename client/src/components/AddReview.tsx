@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-
-interface IParamId {
-    id: string,
-}
-
+import { IParamId } from '../types/restaurant'
 
 
 const AddReview = () => {
-    const { id }:IParamId =  useParams()
+    const { id }: IParamId = useParams()
     const navigate = useNavigate()
     // console.log(id)
 
@@ -19,8 +15,8 @@ const AddReview = () => {
 
 
     //how to add typescript to the promise?
-    
-    const handleSubmitReview = async (e:React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             // how to write typescript for this?
@@ -63,7 +59,7 @@ const AddReview = () => {
                 <button onClick={handleSubmitReview} className="mt-2 btn btn-primary">Submit</button>
             </form>
         </div>
-  )
+    )
 }
 
 export default AddReview

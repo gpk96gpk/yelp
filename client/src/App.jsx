@@ -7,17 +7,18 @@ import { RestaurantsContextProvider } from './context/RestaurantsContext'
 
 const App = () => {
    return (
-   <RestaurantsContextProvider>
-      <div className='container'>
-         <Router>
-            <Routes> 
-               <Route path="/" element={< Home />}/>
-               <Route path="/restaurants/:id/update" element={<UpdatePage />}/>
-               <Route path="/restaurants/:id" element={<RestaurantDetailPage />}/>
-            </Routes>
-         </Router>
-      </div>
-   </RestaurantsContextProvider>
-)}
+      <RestaurantsContextProvider>
+         <div className='container'>
+            <Router>
+               <Routes>
+                  <Route path="/" element={< Home />} />
+                  <Route path="/restaurants/:id/update" element={<UpdatePage />} />
+                  <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
+               </Routes>
+            </Router>
+         </div>
+      </RestaurantsContextProvider>
+   )
+}
 
 export default App

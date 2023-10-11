@@ -5,11 +5,11 @@ import RestaurantList from '../components/RestaurantList'
 
 const Home = () => {
   return (
-  <div>
-    <Header />
-        <AddRestaurant />
-    <RestaurantList />
-  </div>)
+    <div>
+      <Header />
+      <AddRestaurant />
+      <RestaurantList />
+    </div>)
 
 }
 

@@ -1,43 +1,15 @@
 import React, { useState, useContext } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext'
-
-interface IAddRestaurantProps {
-    addRestaurants: (restaurant: {
-        id: number,
-        name: string,
-        location: string,
-        price_range: number,
-        average_rating: number,
-        count: number,
-
-    }) => void
-    // what should i replace void with?
-}
-
-interface IAddRestaurantResponseResults {
-    data: {
-        data: {
-            restaurant: {
-                id: number,
-                name: string,
-                location: string,
-                price_range: number,
-                average_rating: number,
-                count: number,
-
-            }
-        }
-    }
-}
+import { IAddRestaurantProps, IAddRestaurantResponseResults } from '../types/restaurant'
 
 const AddRestaurant = () => {
     const { addRestaurants }: IAddRestaurantProps = useContext(RestaurantsContext)
-    const [name, setName] = useState('')
+    const [name, setName] = useState<string>('')
     const [location, setLocation] = useState('')
     const [priceRange, setPriceRange] = useState('Price Range')
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         try {
             const response: IAddRestaurantResponseResults = await RestaurantFinder.post("/", {
@@ -47,7 +19,9 @@ const AddRestaurant = () => {
             });
             console.log(response.data.data.restaurant)
             console.log(response)
-            addRestaurants(response.data.data.restaurant)
+            if (addRestaurants) {
+                addRestaurants(response.data.data.restaurant)
+            }
         } catch (err) { }
     }
     return (

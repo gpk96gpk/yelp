@@ -1,11 +1,12 @@
-import React, {useContext, useEffect} from 'react'
+import React, { useContext, useEffect } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext'
 import { useNavigate } from 'react-router-dom'
 import StarRating from './StarRating'
+import { IRestaurant, IRestaurantListProps } from '../types/restaurant'
 
 const RestaurantList = (props) => {
-    const { restaurants, setRestaurants } = useContext(RestaurantsContext)
+    const { restaurants, setRestaurants }: IRestaurantListProps = useContext<IRestaurant>(RestaurantsContext)
     let navigate = useNavigate()
     useEffect(() => {
         const fetchData = async () => {
@@ -13,10 +14,10 @@ const RestaurantList = (props) => {
                 const response = await RestaurantFinder.get('/')
                 console.log(response.data.data.restaurants)
                 setRestaurants(response.data.data.restaurants)
-            } catch (err) {}
+            } catch (err) { }
         }
         fetchData()
-    },[])
+    }, [])
 
     const handleDelete = async (e, id) => {
         e.stopPropagation()
@@ -32,13 +33,13 @@ const RestaurantList = (props) => {
 
     const handleUpdate = (e, id) => {
         e.stopPropagation()
-        navigate(`/restaurants/${id}/update`, {state: {id}})
+        navigate(`/restaurants/${id}/update`, { state: { id } })
     }
 
     const handleRestaurantSelect = (id) => {
-        navigate(`/restaurants/${id}`, {state: {id}})
+        navigate(`/restaurants/${id}`, { state: { id } })
     }
-    
+
     const renderRating = (restaurant) => {
         if (!restaurant.count) {
             return <span className="text-warning">0 reviews</span>
@@ -50,7 +51,7 @@ const RestaurantList = (props) => {
             </>
         )
     }
-    
+
     return (
         <div className="list-group">
             <table className="table table-hover table-dark">
@@ -75,8 +76,8 @@ const RestaurantList = (props) => {
                                 <td><button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning">Update</button> </td>
                                 <td><button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger">Delete</button></td>
                             </tr>
-                            )
-                        })}
+                        )
+                    })}
                     {/* <tr>
                         <td>mcdonalds</td>
                         <td>New York</td>
@@ -104,7 +105,7 @@ const RestaurantList = (props) => {
                 </tbody>
             </table>
         </div>
-  )
+    )
 }
 
 export default RestaurantList
