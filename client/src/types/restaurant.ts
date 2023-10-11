@@ -1,4 +1,6 @@
 export interface IRestaurant {
+    restaurant: any;
+    reviews: { id: number; restaurant_id: number; name: string; review: string; rating: number; }[];
     id: number,
     name: string,
     location: string,
@@ -8,8 +10,8 @@ export interface IRestaurant {
 }
 
 export interface IRestaurantListProps {
-    restaurants: Array<IRestaurant>,
-    setRestaurants: (restaurants: Array<IRestaurant>) => void
+    restaurants?: Array<IRestaurant>,
+    setRestaurants?: (restaurants: Array<IRestaurant>) => void
 }
 
 export interface IAddRestaurantResponseResults {
@@ -62,3 +64,32 @@ export type ResponseResults = {
     }
 
 }
+
+// export interface RestaurantParams {
+//   id: number,
+// }
+
+export type SelectedRestaurantContext = {
+  selectedRestaurant: {
+    restaurant: {
+      id: number,
+      name: string,
+      location: string,
+      price_range: number,
+      average_rating: number,
+      count: number,
+    },
+    reviews: Array<{
+      id: number,
+      restaurant_id: number,
+      name: string,
+      review: string,
+      rating: number,
+    }>
+  },
+  setSelectedRestaurant: (selectedRestaurant: number) => void
+}
+
+// export interface IRestaurantParams {
+//     id: string | number,
+// }

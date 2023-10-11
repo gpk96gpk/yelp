@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { IParamId } from '../types/restaurant'
 
 

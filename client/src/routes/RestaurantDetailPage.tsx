@@ -5,48 +5,22 @@ import RestaurantFinder from '../apis/RestaurantFinder'
 import Reviews from '../components/Reviews'
 import AddReview from '../components/AddReview'
 import StarRating from '../components/StarRating'
+import { IParamId, ResponseResults, IRestaurantContextData } from '../types/restaurant'
 
-interface RestaurantParams {
-  id: number,
-}
 
-type SelectedRestaurantContext = {
-  selectedRestaurant: {
-    restaurant: {
-      id: number,
-      name: string,
-      location: string,
-      price_range: number,
-      average_rating: number,
-      count: number,
-    },
-    reviews: Array<{
-      id: number,
-      restaurant_id: number,
-      name: string,
-      review: string,
-      rating: number,
-    }>
-  },
-  setSelectedRestaurant: (selectedRestaurant: number) => void
-}
-
-type ResponseResults = {
-  data: {
-    results: number
-  }
-}
-
+//how to fix this type?
 const RestaurantDetailPage = () => {
-  const { id }: RestaurantParams = useParams()
-  const { selectedRestaurant, setSelectedRestaurant } = useContext<SelectedRestaurantContext>(RestaurantsContext)
+  const { id }: IParamId = useParams()
+  const { selectedRestaurant, setSelectedRestaurant } = useContext<IRestaurantContextData>(RestaurantsContext)
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response: ResponseResults = await RestaurantFinder.get(`/${id}`)
-        setSelectedRestaurant(response.data.results)
+        if (setSelectedRestaurant) {
+          setSelectedRestaurant(response.data.results.restaurant)
+        }
 
       } catch (err) {
         console.log(err)
