@@ -1,7 +1,8 @@
 import React from 'react'
 
-const StarRating = ({rating}) => {
-    const stars = []
+const StarRating = ({rating}) => { 
+    const stars:JSX.Element[] = []
+    
     for (let i = 1; i<=5; i++) {
         if (i <= rating) {
             stars.push(<i key={i} className="fa-solid fa-star text-warning"></i>)

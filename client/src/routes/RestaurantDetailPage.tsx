@@ -17,7 +17,7 @@ type SelectedRestaurantContext = {
       name: string,
       location: string,
       price_range: number,
-      average_rating: string,
+      average_rating: number,
       count: number,
     },
     reviews: Array<{
