@@ -1,30 +1,44 @@
+//imports react methods and useState and useContext hooks from react
 import React, { useState, useContext } from 'react'
+//imports axios from restaurant finder to have base url
 import RestaurantFinder from '../apis/RestaurantFinder'
+//imports RestaurantsContext the context can pass logic down to children in order to avoid prop drilling
 import { RestaurantsContext } from '../context/RestaurantsContext'
+//imports the types to used in this component
 import { IAddRestaurantProps, IAddRestaurantResponseResults } from '../types/restaurant'
 
+//funciton that adds restuarant with name location and price range to the database and restaurant list
 const AddRestaurant = () => {
+    //decontructs addRestaurants from the context and adds the props types
     const { addRestaurants }: IAddRestaurantProps = useContext(RestaurantsContext)
+    //sets state for name and adds string inference type to useState. Use state default vaule is an empty string
     const [name, setName] = useState<string>('')
+    //sets state for location. Uses state default value is an empty string
     const [location, setLocation] = useState('')
+    //sets state for price range. Uses state default value is an empty string
     const [priceRange, setPriceRange] = useState('Price Range')
 
+    //function that handles the submit button. It is an async function that takes in a React MouseEvent.
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        //prevents the default behavior of the event
         e.stopPropagation();
+        //try catch block to handle potential errors and sends a post request to the database with the name, location, and price range.
         try {
+            //creates response variable that is an axios response with the type of IAddRestaurantResponseResults. It awaits the post request. The post request is sent to the base url with the name, location, and price range.
             const response: IAddRestaurantResponseResults = await RestaurantFinder.post("/", {
+                //variable to be passed to post request
                 name,
                 location,
                 price_range: priceRange,
             });
-            console.log(response.data.data.restaurant)
-            console.log(response)
+            //checks if addRestaurants is defined before executing the function
             if (addRestaurants) {
                 addRestaurants(response.data.data.restaurant)
             }
         } catch (err) { }
     }
     return (
+        //html to be rendered when restuarant is added
         <div className="mb-4">
             <form action="">
                 <div className="row">
@@ -73,4 +87,5 @@ const AddRestaurant = () => {
     )
 }
 
+//exports AddRestaurant to be used in other components
 export default AddRestaurant

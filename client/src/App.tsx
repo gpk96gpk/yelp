@@ -5,8 +5,10 @@ import UpdatePage from './routes/UpdatePage'
 import Home from './routes/Home'
 import { RestaurantsContextProvider } from './context/RestaurantsContext'
 
+//creates app component that renders the router and creates routes with context passed in
 const App = () => {
    return (
+      //context provider for restaurants
       <RestaurantsContextProvider>
          <div className='container'>
             <Router>

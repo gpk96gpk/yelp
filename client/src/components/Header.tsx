@@ -1,5 +1,6 @@
 import React from 'react'
 
+//functional component for header
 const Header = () => {
   return (
     <div>

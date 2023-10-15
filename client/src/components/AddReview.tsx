@@ -1,37 +1,41 @@
 import React, { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
+//import useNavigate and useParams from react-router-dom to get the id from the url and to navigate back to the home page after submitting the review
 import { useNavigate, useParams } from 'react-router-dom'
-import { IParamId } from '../types/restaurant'
 
 
+//function to add a review to a restaurant
 const AddReview = () => {
-    const { id }: IParamId = useParams()
+    //decontructs the id from the url with type string
+    const { id } = useParams<{id: string}>()
     const navigate = useNavigate()
-    // console.log(id)
 
+    //creates set state hook to set the name, review text, and rating
     const [name, setName] = useState('')
     const [reviewText, setReviewText] = useState('')
     const [rating, setRating] = useState('')
 
 
-    //how to add typescript to the promise?
-
-    const handleSubmitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+    
+    //function to handle the submit button. It is asyc because it is sending a post request to the database we want to avoid database lag
+    const handleSubmitReview = async (e) => {
+        //prevents the default behavior of the event
         e.preventDefault()
+        //try catch block to handle potential errors and sends a post request to the database with the name, review text, and rating.
         try {
-            // how to write typescript for this?
-
+            //creates response variable that is an axios response. It awaits the post request. The post request is sent to the base url with the id from params to addReview page.
             const response = await RestaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review: reviewText,
                 rating
             })
-            console.log(response)
+            //navigates back to the home page
             navigate(0)
         } catch (err) {
             console.log(err)
         }
     }
+    //returns the html to be rendered in add review page
     return (
         <div className='mb-2'>
             <form action="">
@@ -62,4 +66,5 @@ const AddReview = () => {
     )
 }
 
+//exports AddReview component
 export default AddReview

@@ -1,19 +1,10 @@
 import React from 'react'
 import StarRating from './StarRating'
+import { IReview } from '../types/restaurant'
 
-interface IReview {
-    ({ reviews }: {
-        reviews: Array<{
-            id: number,
-            restaurant_id: number,
-            name: string,
-            review: string,
-            rating: number,
-        }>
-    }): JSX.Element;
-}
-
+//function to show reviews decontructs reviews from props as parameter
 const Reviews: IReview = ({ reviews }) => {
+    //return a div with a map function that maps over reviews and returns a div with a card for each review
     return (
         <div className='row row-cols-3 mb-2'>
             {reviews.map((review) => {
@@ -32,5 +23,5 @@ const Reviews: IReview = ({ reviews }) => {
         </div>
     )
 }
-
+//exports Reviews
 export default Reviews

@@ -1,45 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import RestaurantFinder from '../apis/RestaurantFinder'
-import { UpdateRestaurantProps, UpdateRestaurantId } from '../types/restaurant'
+import { ResponseUpdateResults } from '../types/restaurant'
 
-// what is typescript type for navigate?
-// type Navigate = 
-
-type ResponseResults = {
-    data: {
-        results: {
-            restaurant: {
-                id: number,
-                name: string,
-                location: string,
-                price_range: string,
-                average_rating: number,
-                count: number,
-            },
-            reviews: Array<{
-                id: number,
-                restaurant_id: number,
-                name: string,
-                review: string,
-                rating: number,
-            }>
-        }
-    }
-
-}
-
-
-const UpdateRestaurant: UpdateRestaurantProps = (props) => {
-    const { id }: UpdateRestaurantId = useParams()
+//function that handles the update page
+function UpdateRestaurant(): React.ReactElement {
     let navigate = useNavigate()
+    //gets the id from the url
+    const { id } = useParams<{id: string}>()
+    //sets the name, location, and price range of the restaurant
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const [priceRange, setPriceRange] = useState('')
-
+    //creates a useEffect hook to fetch the data from the api when id changes
     useEffect(() => {
         const fetchData = async () => {
-            const response: ResponseResults = await RestaurantFinder.get(`/${id}`)
+            const response: ResponseUpdateResults = await RestaurantFinder.get(`/${id}`)
             console.log(response.data.results.restaurant)
             setName(response.data.results.restaurant.name)
             setLocation(response.data.results.restaurant.location)
@@ -48,19 +24,21 @@ const UpdateRestaurant: UpdateRestaurantProps = (props) => {
         fetchData()
     }, [id])
 
-    //add typescript to the event handler
-
+    //function that handles the submit button. It is an async function that takes in a React MouseEvent.
     const handleSubmit = async (e) => {
+        //prevents the default behavior of the event
         e.preventDefault()
+        //put request to update the restaurant matching the id
         const updatedRestaurant = await RestaurantFinder.put(`/${id}`, {
+            //variable to be passed to put request and update the restaurant
             name,
             location,
             price_range: priceRange
         })
-        console.log(updatedRestaurant)
+        //navigates back to the home page
         navigate('/')
     }
-
+    //returns the html to be rendered in update restaurant page
     return (
         <div>
             <form action="" className="form-group">
@@ -81,5 +59,5 @@ const UpdateRestaurant: UpdateRestaurantProps = (props) => {
         </div>
     )
 }
-
+//exports the UpdateRestaurant function
 export default UpdateRestaurant

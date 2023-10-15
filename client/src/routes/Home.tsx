@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '../components/Header'
 import AddRestaurant from '../components/AddRestaurant'
 import RestaurantList from '../components/RestaurantList'
-
-const Home = () => {
+//functional component for home page
+export function Home() {
+  //renturns header, add restaurant, and restaurant list components to be rendered
   return (
     <div>
       <Header />
@@ -12,5 +13,5 @@ const Home = () => {
     </div>)
 
 }
-
+//exports the Home component
 export default Home

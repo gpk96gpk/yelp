@@ -1,15 +1,11 @@
 import React from 'react';
+import { IStarRatingParams } from '../types/restaurant';
 
-
-interface IStarRatingParams {
-    rating: number,
-}
-
-//how to bring stars type out of this function?
-
+//creates StarRating component decontructs rating as parameter
 const StarRating = ({ rating }: IStarRatingParams) => {
+    //creates an empty JSX element array stars
     const stars: JSX.Element[] = [];
-
+    //for loop that loops through 5 times checking if i is less than or equal to rating
     for (let i = 1; i <= 5; i++) {
         if (i <= rating) {
             stars.push(<i key={i} className="fa-solid fa-star text-warning"></i>)
@@ -25,5 +21,5 @@ const StarRating = ({ rating }: IStarRatingParams) => {
         </>
     )
 }
-
+//exports StarRating
 export default StarRating

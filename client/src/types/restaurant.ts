@@ -1,3 +1,4 @@
+//defines types for typescript
 export interface IRestaurant {
     restaurant: any;
     reviews: { id: number; restaurant_id: number; name: string; review: string; rating: number; }[];
@@ -63,6 +64,45 @@ export type ResponseResults = {
         }
     }
 
+}
+
+export interface IStarRatingParams {
+    rating: number,
+}
+
+export type ResponseUpdateResults = {
+    data: {
+        results: {
+            restaurant: {
+                id: number,
+                name: string,
+                location: string,
+                price_range: string,
+                average_rating: number,
+                count: number,
+            },
+            reviews: Array<{
+                id: number,
+                restaurant_id: number,
+                name: string,
+                review: string,
+                rating: number,
+            }>
+        }
+    }
+
+}
+
+export interface IReview {
+    ({ reviews }: {
+        reviews: Array<{
+            id: number,
+            restaurant_id: number,
+            name: string,
+            review: string,
+            rating: number,
+        }>
+    }): JSX.Element;
 }
 
 // export interface RestaurantParams {
