@@ -4,7 +4,7 @@ import AddRestaurant from '../components/AddRestaurant'
 import RestaurantList from '../components/RestaurantList'
 //functional component for home page
 export function Home() {
-  //renturns header, add restaurant, and restaurant list components to be rendered
+  //returns header, add restaurant, and restaurant list components to be rendered
   return (
     <div>
       <Header />

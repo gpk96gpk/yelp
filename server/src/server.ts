@@ -6,7 +6,7 @@ const express = require('express')
 const cors = require('cors')
 //db is used to connect to the postgresql database
 const db = require('./db')
-//morgan is used to log requests but isnt being used in test version of app
+//morgan is used to log requests but isn't being used in test version of app
 const morgan = require('morgan')
 const app = express()
 

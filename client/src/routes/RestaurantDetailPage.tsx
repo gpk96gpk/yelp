@@ -5,7 +5,7 @@ import RestaurantFinder from '../apis/RestaurantFinder'
 import Reviews from '../components/Reviews'
 import AddReview from '../components/AddReview'
 import StarRating from '../components/StarRating'
-import { ResponseResults, IRestaurantContextData } from '../types/restaurant'
+import { ISetSelectedResponseResults, IRestaurantContextData } from '../types/restaurant'
 
 
 //functional component for restaurant detail page
@@ -13,15 +13,14 @@ const RestaurantDetailPage = () => {
   //deconstructs the id from the params
   const { id } = useParams<{id: string}>()
   //deconstructs the selectedRestaurant and setSelectedRestaurant from the context
-  const { selectedRestaurant, setSelectedRestaurant } = useContext<any>(RestaurantsContext)
+  const { selectedRestaurant, setSelectedRestaurant } = useContext<IRestaurantContextData>(RestaurantsContext)
 
   //creates a useEffect hook that fetches the data from the api when the id and setSelectedRestaurant changes
   useEffect(() => {
     const fetchData = async () => {
       try {
         //variable that stores the response from the api
-        const response: any = await RestaurantFinder.get(`/${id}`)
-        console.log(response)
+        const response: ISetSelectedResponseResults = await RestaurantFinder.get(`/${id}`)
         //checks if setSelectedRestaurant is defined before executing the function
         if (setSelectedRestaurant) {
           //sets the selected restaurant to the data from the api

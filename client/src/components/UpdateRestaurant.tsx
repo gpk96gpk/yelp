@@ -35,14 +35,14 @@ function UpdateRestaurant(): React.ReactElement {
         //prevents the default behavior of the event
         e.preventDefault()
         //put request to update the restaurant matching the id
-        const updatedRestaurant = await RestaurantFinder.put(`/${id}`, {
+        await RestaurantFinder.put(`/${id}`, {
             //variable to be passed to put request and update the restaurant
             name,
             location,
             price_range: priceRange
         })
         //navigates back to the home page
-        navigate(0)
+        navigate('/')
     }
     //returns the html to be rendered in update restaurant page
     return (

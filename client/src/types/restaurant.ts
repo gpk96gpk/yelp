@@ -1,13 +1,55 @@
 //defines types for typescript
 export interface IRestaurant {
-    restaurant: any;
+    restaurant: {};
     reviews: { id: number; restaurant_id: number; name: string; review: string; rating: number; }[];
+    data: {
+        results: {
+            restaurant: {
+                id: number
+                name: string
+                location: string
+                price_range: number
+                average_rating: number
+                count: number
+            };
+            reviews: {
+                id: number
+                restaurant_id: number
+                name: string
+                review: string
+                rating: number
+            }[]
+        }
+    }
     id: number,
     name: string,
     location: string,
     price_range: number,
     average_rating: number,
     count: number,
+}
+
+export interface ISetSelectedResponseResults {
+    data: {
+        results: {
+            restaurant: {
+                id: number,
+                name: string,
+                location: string,
+                price_range: number,
+                average_rating: number,
+                count: number,
+            },
+            reviews: Array<{
+                id: number,
+                restaurant_id: number,
+                name: string,
+                review: string,
+                rating: number,
+            }>
+        }
+    }
+
 }
 
 export interface IRestaurantListProps {
@@ -27,8 +69,8 @@ export interface IRestaurantContextData {
     restaurants: IRestaurant[];
     setRestaurants: React.Dispatch<React.SetStateAction<IRestaurant[]>>;
     addRestaurants: (restaurant: IRestaurant) => void;
-    selectedRestaurant?: IRestaurant;
-    setSelectedRestaurant: React.Dispatch<React.SetStateAction<IRestaurant | undefined>>;
+    selectedRestaurant?: ISetSelectedResponseResults;
+    setSelectedRestaurant: React.Dispatch<React.SetStateAction<ISetSelectedResponseResults | undefined>>;
 }
 
 export type UpdateRestaurantProps = {

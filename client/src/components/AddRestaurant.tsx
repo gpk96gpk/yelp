@@ -7,11 +7,11 @@ import { RestaurantsContext } from '../context/RestaurantsContext'
 //imports the types to used in this component
 import { IAddRestaurantProps, IAddRestaurantResponseResults } from '../types/restaurant'
 
-//funciton that adds restuarant with name location and price range to the database and restaurant list
+//function that adds restaurant with name location and price range to the database and restaurant list
 const AddRestaurant = () => {
-    //decontructs addRestaurants from the context and adds the props types
+    //deconstructs addRestaurants from the context and adds the props types
     const { addRestaurants }: IAddRestaurantProps = useContext(RestaurantsContext)
-    //sets state for name and adds string inference type to useState. Use state default vaule is an empty string
+    //sets state for name and adds string inference type to useState. Use state default value is an empty string
     const [name, setName] = useState<string>('')
     //sets state for location. Uses state default value is an empty string
     const [location, setLocation] = useState('')
@@ -38,7 +38,7 @@ const AddRestaurant = () => {
         } catch (err) { }
     }
     return (
-        //html to be rendered when restuarant is added
+        //html to be rendered when restaurant is added
         <div className="mb-4">
             <form action="">
                 <div className="row">

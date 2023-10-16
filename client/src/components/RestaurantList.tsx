@@ -119,7 +119,7 @@ const RestaurantList = () => {
                         )
                     })}
                     {/* <tr>
-                        <td>mcdonalds</td>
+                        <td>McDonald's</td>
                         <td>New York</td>
                         <td>$$</td>
                         <td>Rating</td>
@@ -131,7 +131,7 @@ const RestaurantList = () => {
                         </td>                
                     </tr>
                     <tr>
-                        <td>mcdonalds</td>
+                        <td>McDonald's</td>
                         <td>New York</td>
                         <td>$$</td>
                         <td>Rating</td>

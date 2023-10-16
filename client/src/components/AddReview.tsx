@@ -24,7 +24,7 @@ const AddReview = () => {
         //try catch block to handle potential errors and sends a post request to the database with the name, review text, and rating.
         try {
             //creates response variable that is an axios response. It awaits the post request. The post request is sent to the base url with the id from params to addReview page.
-            const response = await RestaurantFinder.post(`/${id}/addReview`, {
+            await RestaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review: reviewText,
                 rating
