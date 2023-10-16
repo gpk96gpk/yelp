@@ -12,20 +12,26 @@ function UpdateRestaurant(): React.ReactElement {
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const [priceRange, setPriceRange] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
     //creates a useEffect hook to fetch the data from the api when id changes
     useEffect(() => {
         const fetchData = async () => {
-            const response: ResponseUpdateResults = await RestaurantFinder.get(`/${id}`)
-            console.log(response.data.results.restaurant)
-            setName(response.data.results.restaurant.name)
-            setLocation(response.data.results.restaurant.location)
-            setPriceRange(response.data.results.restaurant.price_range)
+            try {
+                const response: ResponseUpdateResults = await RestaurantFinder.get(`/${id}`)
+                console.log(response.data.results.restaurant)
+                setName(response.data.results.restaurant.name)
+                setLocation(response.data.results.restaurant.location)
+                setPriceRange(response.data.results.restaurant.price_range)
+            } catch (err) {
+                console.log('Error while getting restaurants', err);
+                setErrorMsg('Data not available');
+            }
         }
         fetchData()
     }, [id])
 
     //function that handles the submit button. It is an async function that takes in a React MouseEvent.
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         //prevents the default behavior of the event
         e.preventDefault()
         //put request to update the restaurant matching the id
@@ -36,7 +42,7 @@ function UpdateRestaurant(): React.ReactElement {
             price_range: priceRange
         })
         //navigates back to the home page
-        navigate('/')
+        navigate(0)
     }
     //returns the html to be rendered in update restaurant page
     return (
@@ -56,6 +62,7 @@ function UpdateRestaurant(): React.ReactElement {
                 </div>
                 <button onClick={handleSubmit} className="btn mt-sm-1 btn-primary">Submit</button>
             </form>
+            {errorMsg && <p className="text-danger">{errorMsg}</p>}
         </div>
     )
 }

@@ -49,7 +49,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
         )
 
         res.status(200).json({
-            status: "sucess",
+            status: "success",
             results: {
                 restaurant: restaurant.rows[0],
                 reviews: reviews.rows
@@ -72,7 +72,7 @@ app.post("/api/v1/restaurants", async (req, res) => {
         )
         console.log(results)
         res.status(201).json({
-            status: "sucess",
+            status: "success",
             results: {
                 restaurant: results.rows[0]
             }
@@ -91,16 +91,21 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
             [req.body.name, req.body.location, req.body.price_range, req.params.id]
         )
         res.status(200).json({
-            status: "sucess",
+            status: "success",
             results: {
                 restaurant: results.rows[0]
             }
         })
     } catch (err) {
         console.log(err)
+        //response status and response buddy
+        res.status(400).json({
+            status: "error",
+            message: "There was an error updating the restaurant"
+        })
     }
-    console.log(req.params)
-    console.log(req.body)
+    console.log(req.params);
+    console.log(req.body);
 })
 
 
@@ -112,12 +117,16 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
             "DELETE FROM restaurants where id = $1",
             [req.params.id]
         )
-        res.status(204).json({
-            status: "sucess",
+        res.status(200).json({
+            status: "success",
         })
 
     } catch (err) {
         console.log(err)
+        res.status(400).json({
+            status: "error",
+            message: "There was an error deleting the restaurant"
+        })
     }
 })
 
@@ -132,7 +141,7 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
             [req.body.name, req.body.review, req.body.rating, req.params.id]
         )
         res.status(201).json({
-            status: "sucess",
+            status: "success",
             results: {
                 review: newReview.rows[0],
             },
@@ -142,8 +151,13 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
         console.log(err)
     }
 })
+
+app.get("/", async (req, res) => {
+    res.status(200).json({ hello: 'world'})
+});
+
 //process.env.PORT is used to get the port from the .env file
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 //app.listen is used to start the server on the port from the .env file
 app.listen(PORT, () => {
     console.log(`server running on PORT ${PORT}`)

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 //function to add a review to a restaurant
 const AddReview = () => {
-    //decontructs the id from the url with type string
+    //deconstructs the id from the url with type string
     const { id } = useParams<{id: string}>()
     const navigate = useNavigate()
 
@@ -17,8 +17,8 @@ const AddReview = () => {
 
 
     
-    //function to handle the submit button. It is asyc because it is sending a post request to the database we want to avoid database lag
-    const handleSubmitReview = async (e) => {
+    //function to handle the submit button. It is async because it is sending a post request to the database we want to avoid database lag
+    const handleSubmitReview = async (e: React.MouseEvent<HTMLButtonElement>) => {
         //prevents the default behavior of the event
         e.preventDefault()
         //try catch block to handle potential errors and sends a post request to the database with the name, review text, and rating.

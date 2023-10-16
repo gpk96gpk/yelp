@@ -11,8 +11,8 @@ export interface IRestaurant {
 }
 
 export interface IRestaurantListProps {
-    restaurants?: Array<IRestaurant>,
-    setRestaurants?: (restaurants: Array<IRestaurant>) => void
+    restaurants: Array<IRestaurant>,
+    setRestaurants: (restaurants: Array<IRestaurant>) => void
 }
 
 export interface IAddRestaurantResponseResults {
@@ -24,11 +24,11 @@ export interface IAddRestaurantResponseResults {
 }
 
 export interface IRestaurantContextData {
-    restaurants?: IRestaurant[];
-    setRestaurants?: React.Dispatch<React.SetStateAction<IRestaurant[]>>;
-    addRestaurants?: (restaurant: IRestaurant) => void;
+    restaurants: IRestaurant[];
+    setRestaurants: React.Dispatch<React.SetStateAction<IRestaurant[]>>;
+    addRestaurants: (restaurant: IRestaurant) => void;
     selectedRestaurant?: IRestaurant;
-    setSelectedRestaurant?: React.Dispatch<React.SetStateAction<IRestaurant>>;
+    setSelectedRestaurant: React.Dispatch<React.SetStateAction<IRestaurant | undefined>>;
 }
 
 export type UpdateRestaurantProps = {
@@ -93,6 +93,13 @@ export type ResponseUpdateResults = {
 
 }
 
+export type ResponseDeleteResults = {
+    data: {
+        status: "success" | "error";
+        message?: string
+    }
+}
+
 export interface IReview {
     ({ reviews }: {
         reviews: Array<{
@@ -127,7 +134,7 @@ export type SelectedRestaurantContext = {
       rating: number,
     }>
   },
-  setSelectedRestaurant: (selectedRestaurant: number) => void
+  setSelectedRestaurant: (selectedRestaurant: IRestaurant) => void
 }
 
 // export interface IRestaurantParams {

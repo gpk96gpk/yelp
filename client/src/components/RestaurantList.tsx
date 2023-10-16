@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext'
-import { useNavigate } from 'react-router-dom'
 //imports StarRating component to get the star rating for each restaurant
 import StarRating from './StarRating'
-import { IRestaurantListProps, IRestaurantContextData } from '../types/restaurant'
+import { IRestaurantContextData, IRestaurant, ResponseDeleteResults } from '../types/restaurant'
 
 //what are the props for this component?
 // type IRestaurantListProps = {
@@ -18,9 +19,9 @@ import { IRestaurantListProps, IRestaurantContextData } from '../types/restauran
 //    }>
 // }
 
-const RestaurantList = (props) => {
-    //deconstructs the restaurants and setRestaurants from the context
-    const { restaurants, setRestaurants }: IRestaurantListProps = useContext<IRestaurantContextData>(RestaurantsContext)
+const RestaurantList = () => {
+    // Deconstructs the restaurants and setRestaurants from the context
+    const { restaurants, setRestaurants } = useContext<IRestaurantContextData>(RestaurantsContext)
     //uses the useNavigate hook to navigate to the update page
     let navigate = useNavigate()
     //creates a useEffect hook to fetch the data from the api when setRestaurants changes
@@ -41,36 +42,42 @@ const RestaurantList = (props) => {
         fetchData()   
     }, [setRestaurants])
 
-    //function that handles the delete button. It is an async function that takes in a React MouseEvent and the id of the restaurant to be deleted.
-    const handleDelete = async (e, id) => {
+    // Function that handles the delete button. It is an async function that
+    // takes in a React MouseEvent and the id of the restaurant to be deleted.
+    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         //prevents the default behavior of the event
         e.stopPropagation()
         try {
             //checks if setRestaurants and restaurants are defined before executing the function
-            if (setRestaurants && restaurants) {
+            if (restaurants) {
                 //filters out restaurant with matching id from setRestaurants array 
-                setRestaurants(restaurants.filter(restaurant => {
-                    return restaurant.id !== id
-                }))
+                const response: ResponseDeleteResults = await RestaurantFinder.delete(`/${id}`)
+                if (response.data.status === "success") {
+                    setRestaurants(restaurants.filter(restaurant => {
+                        return restaurant.id !== Number(id)
+                    }))
+                }
             }
         } catch (err) {
             console.log(err)
         }
+        navigate(0)
     }
     //function that handles the update button. It is an async function that takes in a React MouseEvent and the id of the restaurant to be updated.
-    const handleUpdate = (e, id) => {
+    const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         //prevents the default behavior of the event
         e.stopPropagation()
         //navigates to the update page with the id of the restaurant to be updated
         navigate(`/restaurants/${id}/update`, { state: { id } })
     }
-    //function that handles the restaurant select. It takes in the id of the restaurant to be selected.
-    const handleRestaurantSelect = (id) => {
+    // Function that handles the restaurant select. It takes in the
+    // id of the restaurant to be selected.
+    const handleRestaurantSelect = (id: number) => {
         //navigates to restaurant page with matching id selected from props
         navigate(`/restaurants/${id}`, { state: { id } })
     }
     //function that renders the rating for each restaurant. It takes in the restaurant object.
-    const renderRating = (restaurant) => {
+    const renderRating = (restaurant: IRestaurant) => {
         //if restaurant.count is not defined return 0 reviews
         if (!restaurant.count) {
             return <span className="text-warning">0 reviews</span>

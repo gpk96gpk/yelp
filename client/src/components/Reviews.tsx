@@ -2,7 +2,7 @@ import React from 'react'
 import StarRating from './StarRating'
 import { IReview } from '../types/restaurant'
 
-//function to show reviews decontructs reviews from props as parameter
+//function to show reviews deconstructs reviews from props as parameter
 const Reviews: IReview = ({ reviews }) => {
     //return a div with a map function that maps over reviews and returns a div with a card for each review
     return (

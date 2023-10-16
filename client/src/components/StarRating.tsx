@@ -1,7 +1,7 @@
 import React from 'react';
 import { IStarRatingParams } from '../types/restaurant';
 
-//creates StarRating component decontructs rating as parameter
+//creates StarRating component deconstructs rating as parameter
 const StarRating = ({ rating }: IStarRatingParams) => {
     //creates an empty JSX element array stars
     const stars: JSX.Element[] = [];

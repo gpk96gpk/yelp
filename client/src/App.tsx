@@ -13,6 +13,7 @@ const App = () => {
          <div className='container'>
             <Router>
                <Routes>
+                  {/* routes containing components for pages. Element will be props whose children will be passed to rest of the context*/}
                   <Route path="/" element={< Home />} />
                   <Route path="/restaurants/:id/update" element={<UpdatePage />} />
                   <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
