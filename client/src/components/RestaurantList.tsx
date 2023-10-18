@@ -7,18 +7,6 @@ import { RestaurantsContext } from '../context/RestaurantsContext'
 import StarRating from './StarRating'
 import { IRestaurantContextData, IRestaurant, ResponseDeleteResults } from '../types/restaurant'
 
-//what are the props for this component?
-// type IRestaurantListProps = {
-//    restaurants: Array<{
-//        id: number,
-//        name: string,
-//        location: string,
-//        price_range: string,
-//        average_rating: number,
-//        count: number,
-//    }>
-// }
-
 const RestaurantList = () => {
     // Deconstructs the restaurants and setRestaurants from the context
     const { restaurants, setRestaurants } = useContext<IRestaurantContextData>(RestaurantsContext)
