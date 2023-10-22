@@ -11,14 +11,13 @@ function UpdateRestaurant(): React.ReactElement {
     // sets the name, location, and price range of the restaurant
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
-    const [priceRange, setPriceRange] = useState('')
+    const [priceRange, setPriceRange] = useState<number>()
     const [errorMsg, setErrorMsg] = useState('')
     // creates a useEffect hook to fetch the data from the api when id changes
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response: ResponseUpdateResults = await RestaurantFinder.get(`/${id}`)
-                console.log(response.data.data.restaurant)
                 setName(response.data.data.restaurant.name)
                 setLocation(response.data.data.restaurant.location)
                 setPriceRange(response.data.data.restaurant.price_range)
@@ -58,7 +57,7 @@ function UpdateRestaurant(): React.ReactElement {
                 </div>
                 <div className="form-group">
                     <label htmlFor="price_range">Price Range</label>
-                    <input value={priceRange} onChange={e => setPriceRange(e.target.value)} type="number" id="price_range" className="form-control" />
+                    <input value={priceRange} onChange={e => setPriceRange(e.target.valueAsNumber)} type="number" id="price_range" className="form-control" />
                 </div>
                 <button onClick={handleSubmit} className="btn mt-sm-1 btn-primary">Submit</button>
             </form>

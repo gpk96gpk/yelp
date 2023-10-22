@@ -1,25 +1,34 @@
 //defines types for typescript
+export interface IRestaurantDataNum {
+    restaurant: {
+        id: number,
+        name: string,
+        location: string,
+        price_range: number,
+        average_rating: number,
+        count: number,
+    },
+    reviews: {
+        id: number,
+        restaurant_id: number,
+        name: string,
+        review: string,
+        rating: number,
+    }[]
+}
+
+export interface IResponseResults {
+    data: {
+        data: IRestaurantDataNum
+    }
+}
+
+
 export interface IRestaurant {
     restaurant: {};
     reviews: { id: number; restaurant_id: number; name: string; review: string; rating: number; }[];
     data: {
-        data: {
-            restaurant: {
-                id: number
-                name: string
-                location: string
-                price_range: number
-                average_rating: number
-                count: number
-            };
-            reviews: {
-                id: number
-                restaurant_id: number
-                name: string
-                review: string
-                rating: number
-            }[]
-        }
+        data: IRestaurantDataNum
     }
     id: number,
     name: string,
@@ -27,34 +36,6 @@ export interface IRestaurant {
     price_range: number,
     average_rating: number,
     count: number,
-}
-
-export interface ISetSelectedResponseResults {
-    data: {
-        data: {
-            restaurant: {
-                id: number,
-                name: string,
-                location: string,
-                price_range: number,
-                average_rating: number,
-                count: number,
-            },
-            reviews: Array<{
-                id: number,
-                restaurant_id: number,
-                name: string,
-                review: string,
-                rating: number,
-            }>
-        }
-    }
-
-}
-
-export interface IRestaurantListProps {
-    restaurants: Array<IRestaurant>,
-    setRestaurants: (restaurants: Array<IRestaurant>) => void
 }
 
 export interface IAddRestaurantResponseResults {
@@ -69,40 +50,26 @@ export interface IRestaurantContextData {
     restaurants?: IRestaurant[];
     setRestaurants: React.Dispatch<React.SetStateAction<IRestaurant[]>>;
     addRestaurants?: (restaurant: IRestaurant) => void;
-    selectedRestaurant?: ISetSelectedResponseResults;
-    setSelectedRestaurant?: React.Dispatch<React.SetStateAction<ISetSelectedResponseResults | undefined>>;
-}
-
-export type UpdateRestaurantProps = {
-    (props: (name: string, location: string, price_range: number) => JSX.Element): JSX.Element;
-}
-export interface UpdateRestaurantId {
-    id: string,
-}
-
-export interface IParamId {
-    id: string,
+    selectedRestaurant?: IResponseResults;
+    setSelectedRestaurant?: React.Dispatch<React.SetStateAction<IResponseResults | undefined>>;
 }
 
 export interface IAddRestaurantProps {
     addRestaurants?: ((restaurant: IRestaurant) => void)
 }
-//How to fix this error?
-
-
-export interface IAddRestaurantResponseResults {
+// write type to simplify by showing change of price range type from string to number with
+// IResponseResults
+export type ResponseUpdateResults = {
     data: {
-        data: {
-            restaurant: IRestaurant
-        }
+        data: IRestaurantDataNum
     }
 }
-
+// Can it be simplified by having a common restaurant review interface?
 export type ResponseResults = {
     data: {
         data: {
             restaurant: IRestaurant,
-            reviews: Array<IRestaurant>
+            reviews: IRestaurant[]
         }
     }
 
@@ -110,29 +77,6 @@ export type ResponseResults = {
 
 export interface IStarRatingParams {
     rating: number,
-}
-
-export type ResponseUpdateResults = {
-    data: {
-        data: {
-            restaurant: {
-                id: number,
-                name: string,
-                location: string,
-                price_range: string,
-                average_rating: number,
-                count: number,
-            },
-            reviews: Array<{
-                id: number,
-                restaurant_id: number,
-                name: string,
-                review: string,
-                rating: number,
-            }>
-        }
-    }
-
 }
 
 export type ResponseDeleteResults = {
@@ -144,41 +88,12 @@ export type ResponseDeleteResults = {
 
 export interface IReview {
     ({ reviews }: {
-        reviews: Array<{
+        reviews: {
             id: number,
             restaurant_id: number,
             name: string,
             review: string,
             rating: number,
-        }>
+        }[]
     }): JSX.Element;
 }
-
-// export interface RestaurantParams {
-//   id: number,
-// }
-
-export type SelectedRestaurantContext = {
-  selectedRestaurant: {
-    restaurant: {
-      id: number,
-      name: string,
-      location: string,
-      price_range: number,
-      average_rating: number,
-      count: number,
-    },
-    reviews: Array<{
-      id: number,
-      restaurant_id: number,
-      name: string,
-      review: string,
-      rating: number,
-    }>
-  },
-  setSelectedRestaurant: (selectedRestaurant: IRestaurant) => void
-}
-
-// export interface IRestaurantParams {
-//     id: string | number,
-// }

@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react'
-import { IRestaurant, IRestaurantContextData, ISetSelectedResponseResults } from '../types/restaurant'
+import { IResponseResults, IRestaurant, IRestaurantContextData } from '../types/restaurant'
 
 // creates and exports RestaurantsContext
 export const RestaurantsContext = createContext<IRestaurantContextData>({
@@ -13,7 +13,7 @@ export const RestaurantsContext = createContext<IRestaurantContextData>({
 export const RestaurantsContextProvider = (props: { children: React.ReactElement }) => {
     // sets restaurants and selectedRestaurant to useState
     const [restaurants, setRestaurants] = useState<IRestaurant[]>([])
-    const [selectedRestaurant, setSelectedRestaurant] = useState<ISetSelectedResponseResults>()
+    const [selectedRestaurant, setSelectedRestaurant] = useState<IResponseResults>()
     // creates a function that takes in a restaurant and adds it to the restaurants array
     const addRestaurants = (restaurant: IRestaurant) => {
         setRestaurants([...restaurants, restaurant])

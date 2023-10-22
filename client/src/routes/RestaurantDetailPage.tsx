@@ -5,7 +5,7 @@ import RestaurantFinder from '../apis/RestaurantFinder'
 import Reviews from '../components/Reviews'
 import AddReview from '../components/AddReview'
 import StarRating from '../components/StarRating'
-import { ISetSelectedResponseResults, IRestaurantContextData } from '../types/restaurant'
+import { IResponseResults, IRestaurantContextData } from '../types/restaurant'
 
 
 // JSX element for restaurant detail page to store name and reviews of each restaurant
@@ -20,7 +20,7 @@ const RestaurantDetailPage = () => {
     const fetchData = async () => {
       try {
         // variable that stores the response data for single restaurant from the api
-        const response: ISetSelectedResponseResults = await RestaurantFinder.get(`/${id}`)
+        const response: IResponseResults = await RestaurantFinder.get(`/${id}`)
         // checks if setSelectedRestaurant is defined before executing the function
         if (setSelectedRestaurant) {
           // sets the selected restaurant to the data from the api
