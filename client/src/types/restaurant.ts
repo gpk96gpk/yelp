@@ -66,11 +66,11 @@ export interface IAddRestaurantResponseResults {
 }
 
 export interface IRestaurantContextData {
-    restaurants: IRestaurant[];
+    restaurants?: IRestaurant[];
     setRestaurants: React.Dispatch<React.SetStateAction<IRestaurant[]>>;
-    addRestaurants: (restaurant: IRestaurant) => void;
+    addRestaurants?: (restaurant: IRestaurant) => void;
     selectedRestaurant?: ISetSelectedResponseResults;
-    setSelectedRestaurant: React.Dispatch<React.SetStateAction<ISetSelectedResponseResults | undefined>>;
+    setSelectedRestaurant?: React.Dispatch<React.SetStateAction<ISetSelectedResponseResults | undefined>>;
 }
 
 export type UpdateRestaurantProps = {

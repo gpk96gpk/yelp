@@ -2,9 +2,9 @@ import React from 'react'
 import StarRating from './StarRating'
 import { IReview } from '../types/restaurant'
 
-//function to show reviews deconstructs reviews from props as parameter
+// JSX element to show reviews deconstructs reviews from props
 const Reviews: IReview = ({ reviews }) => {
-    //return a div with a map function that maps over reviews and returns a div with a card for each review
+    // return a div with a map function that maps over reviews and returns a div with a card for each review
     return (
         <div className='row row-cols-3 mb-2'>
             {reviews.map((review) => {
@@ -23,5 +23,5 @@ const Reviews: IReview = ({ reviews }) => {
         </div>
     )
 }
-//exports Reviews
+// exports Reviews
 export default Reviews

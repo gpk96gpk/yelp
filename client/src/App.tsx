@@ -13,7 +13,8 @@ const App = () => {
          <div className='container'>
             <Router>
                <Routes>
-                  {/* routes containing components for pages. Element will be props whose children will be passed to rest of the context*/}
+                  {/* routes with paths to component pages for home, update, and restaurant 
+                  detail pages whose children will be passed to rest of the context*/}
                   <Route path="/" element={< Home />} />
                   <Route path="/restaurants/:id/update" element={<UpdatePage />} />
                   <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
@@ -24,4 +25,5 @@ const App = () => {
    )
 }
 
+// export app component to be rendered in index.tsx
 export default App

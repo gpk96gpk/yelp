@@ -1,41 +1,46 @@
 import React, { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
-//import useNavigate and useParams from react-router-dom to get the id from the url and to navigate back to the home page after submitting the review
+// import useNavigate and useParams from react-router-dom to get the id 
+// from the url and to navigate back to the home page after submitting the review
 import { useNavigate, useParams } from 'react-router-dom'
 
 
-//function to add a review to a restaurant
+// JSX Element to add a review to a restaurant
 const AddReview = () => {
-    //deconstructs the id from the url with type string
+    // deconstructs the id from the url with type string
     const { id } = useParams<{id: string}>()
     const navigate = useNavigate()
 
-    //creates set state hook to set the name, review text, and rating
+    // creates set state hook to set the name, review text, and rating
     const [name, setName] = useState('')
     const [reviewText, setReviewText] = useState('')
     const [rating, setRating] = useState('')
 
 
     
-    //function to handle the submit button. It is async because it is sending a post request to the database we want to avoid database lag
+    // function to handle the submit button. It is async because it is sending a post 
+    // request to the database we want to avoid database lag
     const handleSubmitReview = async (e: React.MouseEvent<HTMLButtonElement>) => {
         //prevents the default behavior of the event
         e.preventDefault()
-        //try catch block to handle potential errors and sends a post request to the database with the name, review text, and rating.
+        // try catch block to handle potential errors and sends a post request to 
+        // the database with the name, review text, and rating.
         try {
-            //creates response variable that is an axios response. It awaits the post request. The post request is sent to the base url with the id from params to addReview page.
+            // creates response variable that is an axios response. It awaits the post request. 
+            // post request is sent to the base url with the id from params to addReview page.
             await RestaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review: reviewText,
                 rating
             })
-            //navigates back to the home page
-            navigate(0)
+            // navigates back to the home page
+            navigate('/')
         } catch (err) {
             console.log(err)
         }
     }
-    //returns the html to be rendered in add review page
+    // returns the html to be rendered in add review page with cards containing 
+    // name, rating, and review text with submit button
     return (
         <div className='mb-2'>
             <form action="">
@@ -66,5 +71,5 @@ const AddReview = () => {
     )
 }
 
-//exports AddReview component
+// exports AddReview component
 export default AddReview

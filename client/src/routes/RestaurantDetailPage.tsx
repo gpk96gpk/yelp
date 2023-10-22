@@ -8,22 +8,22 @@ import StarRating from '../components/StarRating'
 import { ISetSelectedResponseResults, IRestaurantContextData } from '../types/restaurant'
 
 
-//functional component for restaurant detail page
+// JSX element for restaurant detail page to store name and reviews of each restaurant
 const RestaurantDetailPage = () => {
-  //deconstructs the id from the params
+  // deconstructs the id from the params
   const { id } = useParams<{id: string}>()
-  //deconstructs the selectedRestaurant and setSelectedRestaurant from the context
+  // deconstructs the selectedRestaurant and setSelectedRestaurant from the context to pass down values
   const { selectedRestaurant, setSelectedRestaurant } = useContext<IRestaurantContextData>(RestaurantsContext)
 
-  //creates a useEffect hook that fetches the data from the api when the id and setSelectedRestaurant changes
+  // creates a useEffect hook that fetches the data from the api when the id and setSelectedRestaurant changes
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //variable that stores the response from the api
+        // variable that stores the response data for single restaurant from the api
         const response: ISetSelectedResponseResults = await RestaurantFinder.get(`/${id}`)
-        //checks if setSelectedRestaurant is defined before executing the function
+        // checks if setSelectedRestaurant is defined before executing the function
         if (setSelectedRestaurant) {
-          //sets the selected restaurant to the data from the api
+          // sets the selected restaurant to the data from the api
           setSelectedRestaurant(response)
         }
 
@@ -33,8 +33,9 @@ const RestaurantDetailPage = () => {
     }
     fetchData()
   }, [id, selectedRestaurant, setSelectedRestaurant])
-  //returns the html and jsx to be rendered in restaurant detail page
   
+  // returns the html and JSX elements to be rendered in restaurant detail page
+  // renders out name of restaurant, star rating, reviews, and add review inputs
   return (
     <>
       {selectedRestaurant && (
@@ -56,5 +57,5 @@ const RestaurantDetailPage = () => {
   )
 }
 
-//exports the RestaurantDetailPage component
+// exports the RestaurantDetailPage component
 export default RestaurantDetailPage

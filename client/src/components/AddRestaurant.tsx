@@ -7,11 +7,12 @@ import { RestaurantsContext } from '../context/RestaurantsContext'
 //imports the types to used in this component
 import { IAddRestaurantProps, IAddRestaurantResponseResults } from '../types/restaurant'
 
-//function that adds restaurant with name location and price range to the database and restaurant list
+//JSX element that adds restaurant with name location and price range to the database and restaurant list
 const AddRestaurant = () => {
     //deconstructs addRestaurants from the context and adds the props types
     const { addRestaurants }: IAddRestaurantProps = useContext(RestaurantsContext)
-    //sets state for name and adds string inference type to useState. Use state default value is an empty string
+    //sets state for name and adds string inference type to useState. Use state default value is an 
+    //empty string
     const [name, setName] = useState<string>('')
     //sets state for location. Uses state default value is an empty string
     const [location, setLocation] = useState('')
@@ -22,9 +23,11 @@ const AddRestaurant = () => {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         //prevents the default behavior of the event
         e.stopPropagation();
-        //try catch block to handle potential errors and sends a post request to the database with the name, location, and price range.
+        //try catch block to handle potential errors and sends a post request to the database 
+        //with the name, location, and price range.
         try {
-            //creates response variable that is an axios response with the type of IAddRestaurantResponseResults. It awaits the post request. The post request is sent to the base url with the name, location, and price range.
+            //creates response variable that is an axios response with the type of 
+            //IAddRestaurantResponseResults. It awaits the post request. The post request is sent to the base url with the name, location, and price range.
             const response: IAddRestaurantResponseResults = await RestaurantFinder.post("/", {
                 //variable to be passed to post request
                 name,

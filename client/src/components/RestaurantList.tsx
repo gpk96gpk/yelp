@@ -1,32 +1,33 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext'
-//imports StarRating component to get the star rating for each restaurant
+// imports StarRating component to get the star rating for each restaurant
 import StarRating from './StarRating'
 import { IRestaurantContextData, IRestaurant, ResponseDeleteResults } from '../types/restaurant'
 
+// JSX element to render full list of restaurants
 const RestaurantList = () => {
-    // Deconstructs the restaurants and setRestaurants from the context
+    // Deconstructs the restaurants and setRestaurants from the context to pass 
+    // data to each restaurant
     const { restaurants, setRestaurants } = useContext<IRestaurantContextData>(RestaurantsContext)
-    //uses the useNavigate hook to navigate to the update page
+    // uses the useNavigate hook to navigate to the update page
     let navigate = useNavigate()
-    //creates a useEffect hook to fetch the data from the api when setRestaurants changes
+    // creates a useEffect hook to fetch the data from the api when a restaurant is added or deleted
     useEffect(() => {
-        //async function that fetches the data from the api stores it in response variable
+        // async function that fetches the data from the api stores it in response variable
         const fetchData = async () => {
             try {
-                //variable that stores the response from the api
+                // variable that stores the response data from the api
                 const response = await RestaurantFinder.get('/')
-                //checks if setRestaurants is defined before executing the function
+                // checks if setRestaurants is defined before executing the function
                 if (setRestaurants) {
-                    //takes response and sets the restaurants to the data from the api
+                    // takes response and sets the restaurants to the list of restaurants from the api
                     setRestaurants(response.data.data.restaurants)
                 }
             } catch (err) { }
         }
-        //calls the fetchData function
+        // calls the fetchData function
         fetchData()   
     }, [setRestaurants])
 
@@ -36,9 +37,9 @@ const RestaurantList = () => {
         //prevents the default behavior of the event
         e.stopPropagation()
         try {
-            //checks if setRestaurants and restaurants are defined before executing the function
+            // checks if setRestaurants and restaurants are defined before executing the function
             if (restaurants) {
-                //filters out restaurant with matching id from setRestaurants array 
+                // filters out restaurant with matching id from setRestaurants array 
                 const response: ResponseDeleteResults = await RestaurantFinder.delete(`/${id}`)
                 if (response.data.status === "success") {
                     setRestaurants(restaurants.filter(restaurant => {
@@ -51,7 +52,7 @@ const RestaurantList = () => {
         }
         navigate(0)
     }
-    //function that handles the update button. It is an async function that takes in a React MouseEvent and the id of the restaurant to be updated.
+    // function that handles the update button. It is an async function that takes in a React MouseEvent and the id of the restaurant to be updated.
     const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         //prevents the default behavior of the event
         e.stopPropagation()
@@ -61,16 +62,16 @@ const RestaurantList = () => {
     // Function that handles the restaurant select. It takes in the
     // id of the restaurant to be selected.
     const handleRestaurantSelect = (id: number) => {
-        //navigates to restaurant page with matching id selected from props
+        // navigates to restaurant page with matching id selected from props
         navigate(`/restaurants/${id}`, { state: { id } })
     }
-    //function that renders the rating for each restaurant. It takes in the restaurant object.
+    // function that renders the rating for each restaurant. It takes in the restaurant object.
     const renderRating = (restaurant: IRestaurant) => {
         //if restaurant.count is not defined return 0 reviews
         if (!restaurant.count) {
             return <span className="text-warning">0 reviews</span>
         }
-        //returns the star rating and the number of reviews
+        // returns the star rating and the number of reviews
         return (
             <>
                 <StarRating rating={restaurant.id} />
@@ -78,7 +79,7 @@ const RestaurantList = () => {
             </>
         )
     }
-    //returns the html to be rendered in the restaurant list
+    // returns the html to be rendered in the restaurant list
     return (
         <div className="list-group">
             <table className="table table-hover table-dark">
@@ -93,7 +94,7 @@ const RestaurantList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* maps over the restaurants array and returns the html to be rendered for each restaurant */}
+                    {/* maps over the restaurants array, adds context and returns the html to be rendered for each restaurant */}
                     {restaurants && restaurants.map((restaurant) => {
                         return (
                             <tr onClick={() => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
@@ -106,7 +107,9 @@ const RestaurantList = () => {
                             </tr>
                         )
                     })}
-                    {/* <tr>
+                    {/* 
+                    Sample Entries
+                    <tr>
                         <td>McDonald's</td>
                         <td>New York</td>
                         <td>$$</td>
@@ -135,5 +138,5 @@ const RestaurantList = () => {
         </div>
     )
 }
-//exports the RestaurantList component
+// exports the RestaurantList component
 export default RestaurantList
