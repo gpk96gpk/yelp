@@ -1,12 +1,12 @@
-//entry point for the server contains port
+// entry point for the server contains port
 require('dotenv').config()
-//express is used to create the server
+// express is used to create the server and manage requests
 const express = require('express')
-//cors is used to allow cross origin resource sharing to prevent cors errors
+// cors is used to allow cross origin resource sharing to prevent cors errors
 const cors = require('cors')
-//db is used to connect to the postgresql database
+// db is used to connect to the postgresql database
 const db = require('./db')
-//morgan is used to log requests but isn't being used in test version of app
+// morgan is used to log requests but isn't being used in test version of app
 const morgan = require('morgan')
 const app = express()
 
@@ -14,8 +14,8 @@ app.use(cors())
 app.use(express.json())
 
 
-//Get all
-//get request to get all restaurants from the database
+// Get all
+// get request to get all restaurants from the database
 app.get("/api/v1/restaurants", async (req, res) => {
     try {
         const results = await db.query("select * from restaurants")
@@ -33,8 +33,8 @@ app.get("/api/v1/restaurants", async (req, res) => {
     }
 })
 
-//Get a
-//get request to get a specific restaurant from the database
+// Get a
+// get request to get a specific restaurant from the database
 app.get("/api/v1/restaurants/:id", async (req, res) => {
 
     try {
@@ -60,8 +60,8 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     }
 })
 
-//Create a
-//post request to create a restaurant in the database
+// Create a
+// post request to create a restaurant in the database
 app.post("/api/v1/restaurants", async (req, res) => {
     console.log(req.body)
 
@@ -82,8 +82,8 @@ app.post("/api/v1/restaurants", async (req, res) => {
     }
 })
 
-//Update
-//put request to update a restaurant in the database
+// Update
+// put request to update a restaurant in the database
 app.put("/api/v1/restaurants/:id", async (req, res) => {
     try {
         const results = await db.query(
@@ -109,8 +109,8 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
 })
 
 
-//Delete
-//delete request to delete a restaurant in the database
+// Delete
+// delete request to delete a restaurant in the database
 app.delete("/api/v1/restaurants/:id", async (req, res) => {
     try {
         const results = await db.query(
@@ -131,8 +131,8 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
 })
 
 
-//Add Review
-//post request to add a review to a restaurant in the database
+// Add Review
+// post request to add a review to a restaurant in the database
 app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
 
     try {
@@ -156,9 +156,9 @@ app.get("/", async (req, res) => {
     res.status(200).json({ hello: 'world'})
 });
 
-//process.env.PORT is used to get the port from the .env file
+// process.env.PORT is used to get the port from the .env file
 const PORT = process.env.PORT || 3001
-//app.listen is used to start the server on the port from the .env file
+// app.listen is used to start the server on the port from the .env file
 app.listen(PORT, () => {
     console.log(`server running on PORT ${PORT}`)
 })
