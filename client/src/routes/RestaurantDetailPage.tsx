@@ -40,15 +40,15 @@ const RestaurantDetailPage = () => {
     <>
       {selectedRestaurant && (
         <>
-          <h1 className='display-1 text-center text-capitalize'>{selectedRestaurant.data.results.restaurant.name}</h1>
+          <h1 className='display-1 text-center text-capitalize'>{selectedRestaurant.data.data.restaurant.name}</h1>
           <div className="text-center">
-            <StarRating rating={selectedRestaurant.data.results.restaurant.average_rating} />
+            <StarRating rating={selectedRestaurant.data.data.restaurant.average_rating} />
             <span className="text-warning ml-1">
-              {selectedRestaurant.data.results.restaurant.count ? `(${selectedRestaurant.data.results.restaurant.count})` : "0"}
+              {selectedRestaurant.data.data.restaurant.count ? `(${selectedRestaurant.data.data.restaurant.count})` : "0"}
             </span>
           </div>
           <div className="mt-3">
-            <Reviews reviews={selectedRestaurant.data.results.reviews} />
+            <Reviews reviews={selectedRestaurant.data.data.reviews} />
           </div>
           <AddReview />
         </>

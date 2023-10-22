@@ -3,7 +3,7 @@ export interface IRestaurant {
     restaurant: {};
     reviews: { id: number; restaurant_id: number; name: string; review: string; rating: number; }[];
     data: {
-        results: {
+        data: {
             restaurant: {
                 id: number
                 name: string
@@ -31,7 +31,7 @@ export interface IRestaurant {
 
 export interface ISetSelectedResponseResults {
     data: {
-        results: {
+        data: {
             restaurant: {
                 id: number,
                 name: string,
@@ -100,7 +100,7 @@ export interface IAddRestaurantResponseResults {
 
 export type ResponseResults = {
     data: {
-        results: {
+        data: {
             restaurant: IRestaurant,
             reviews: Array<IRestaurant>
         }
@@ -114,7 +114,7 @@ export interface IStarRatingParams {
 
 export type ResponseUpdateResults = {
     data: {
-        results: {
+        data: {
             restaurant: {
                 id: number,
                 name: string,

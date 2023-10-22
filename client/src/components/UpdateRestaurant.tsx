@@ -18,10 +18,10 @@ function UpdateRestaurant(): React.ReactElement {
         const fetchData = async () => {
             try {
                 const response: ResponseUpdateResults = await RestaurantFinder.get(`/${id}`)
-                console.log(response.data.results.restaurant)
-                setName(response.data.results.restaurant.name)
-                setLocation(response.data.results.restaurant.location)
-                setPriceRange(response.data.results.restaurant.price_range)
+                console.log(response.data.data.restaurant)
+                setName(response.data.data.restaurant.name)
+                setLocation(response.data.data.restaurant.location)
+                setPriceRange(response.data.data.restaurant.price_range)
             } catch (err) {
                 console.log('Error while getting restaurants', err);
                 setErrorMsg('Data not available');

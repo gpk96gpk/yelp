@@ -53,6 +53,10 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
         res.status(200).json({
             status: "success",
             results: {
+                restaurant: restaurant.rows[0].length,
+                reviews: reviews.rows.length
+            },
+            data: {
                 restaurant: restaurant.rows[0],
                 reviews: reviews.rows
             }
@@ -75,7 +79,8 @@ app.post("/api/v1/restaurants", async (req, res) => {
         console.log(results)
         res.status(201).json({
             status: "success",
-            results: {
+            results: results.rows[0].length,
+            data: {
                 restaurant: results.rows[0]
             }
         })
@@ -94,7 +99,8 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
         )
         res.status(200).json({
             status: "success",
-            results: {
+            results: results.rows[0].length,
+            data: {
                 restaurant: results.rows[0]
             }
         })
@@ -144,7 +150,8 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
         )
         res.status(201).json({
             status: "success",
-            results: {
+            results: newReview.rows.length,
+            data: {
                 review: newReview.rows[0],
             },
 
