@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require('express')
 // cors is used to allow cross origin resource sharing to prevent cors errors
 const cors = require('cors')
-// db is used to connect to the postgresql database
+// db is used to send queries to the postgresql database
 const db = require('./db')
 // morgan is used to log requests but isn't being used in test version of app
 const morgan = require('morgan')
@@ -19,7 +19,9 @@ app.use(express.json())
 app.get("/api/v1/restaurants", async (req, res) => {
     try {
         const results = await db.query("select * from restaurants")
-        const restaurantsRatingData = await db.query("SELECT * FROM restaurants LEFT JOIN ( SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating),1) AS average_rating FROM reviews GROUP BY restaurant_id ) reviews ON restaurants.id = reviews.restaurant_id;")
+        const restaurantsRatingData = await db.query(
+            // parameterized query to prevent sql injection
+            "SELECT * FROM restaurants LEFT JOIN ( SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating),1) AS average_rating FROM reviews GROUP BY restaurant_id ) reviews ON restaurants.id = reviews.restaurant_id;")
 
         res.status(200).json({
             status: "success",
@@ -152,11 +154,13 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
     }
 })
 
+// response for default route to prevent errors
 app.get("/", async (req, res) => {
-    res.status(200).json({ hello: 'world'})
+    res.status(200).json({ status: 'success'})
 });
 
-// process.env.PORT is used to get the port from the .env file
+// process.env.PORT is used to get the port from the .env file 
+// or 3001 if it doesn't exist
 const PORT = process.env.PORT || 3001
 // app.listen is used to start the server on the port from the .env file
 app.listen(PORT, () => {

@@ -1,4 +1,4 @@
-// pool is a connection pool to the database
+// pool is a connection tool to connect to the database
 const { Pool } = require("pg")
 
 const pool = new Pool()
