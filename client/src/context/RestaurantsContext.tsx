@@ -22,7 +22,7 @@ export const RestaurantsContextProvider = (props: { children: React.ReactElement
     // selectedRestaurant, and setSelectedRestaurant
     return (
         <RestaurantsContext.Provider value={{ restaurants, setRestaurants, addRestaurants, selectedRestaurant, setSelectedRestaurant }}>
-            {/* renders the children of the RestaurantsContextProvider */}
+            {/* passes props to the children of the RestaurantsContextProvider */}
             {props.children}
         </RestaurantsContext.Provider>
     )
