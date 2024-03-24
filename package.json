@@ -2,6 +2,8 @@
     "name": "my-app",
     "version": "1.0.0",
     "scripts": {
-      "start": "npm start --prefix server && npm start --prefix client"
-    }
+        "start": "npm-run-all --parallel start:client start:server",
+        "start:client": "node client/dist/App.js",
+        "start:server": "node server/dist/server.js"
+      }
   }
