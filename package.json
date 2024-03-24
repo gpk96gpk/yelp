@@ -2,7 +2,7 @@
     "name": "my-app",
     "version": "1.0.0",
     "scripts": {
-        "start": "node server/index.js & react-scripts start",
+        "start": "node server/dist/index.js & react-scripts start",
         "start:client": "cd client && npm start",
         "start:server": "cd server && npm start",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
