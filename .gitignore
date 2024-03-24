@@ -3,3 +3,4 @@ client/node_modules/
 server/dist
 client/dist
 questions
+node_modules
