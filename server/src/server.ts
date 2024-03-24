@@ -1,5 +1,8 @@
 // entry point for the server contains port
+
 require('dotenv').config()
+const path = require('path');
+
 // express is used to create the server and manage requests
 const express = require('express')
 // cors is used to allow cross origin resource sharing to prevent cors errors
@@ -12,6 +15,15 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  });
 
 
 // Get all
